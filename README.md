@@ -19,6 +19,7 @@ A modern, high-converting marketing website built with React, TypeScript, and Vi
 - Vite
 - Tailwind CSS
 - Lucide React Icons
+- n8n Webhook Integration
 
 ## Getting Started
 
