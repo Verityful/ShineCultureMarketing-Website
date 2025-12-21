@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Get-ChildItem -Recurse -Include *.png,*.PNG | Select-Object -ExpandProperty FullName\")",
+      "Bash(powershell -Command \"Get-ChildItem -Recurse -Include ''*shine*logo*.png'',''*Shine*logo*.PNG'' | Select-Object -ExpandProperty FullName\")",
+      "Bash(powershell -Command \"Get-ChildItem -File | Select-Object Name\")",
+      "Bash(mv:*)",
+      "Bash(npm install)",
+      "Bash(npm run build:*)",
+      "Bash(npm run preview:*)",
+      "Bash(powershell -Command \"Start-Sleep -Seconds 3; Write-Host ''Preview server should be running at http://localhost:4173''\")",
+      "Bash(npm doctor:*)",
+      "Bash(npm --version:*)",
+      "Bash(npm run dev:*)",
+      "Bash(cat:*)",
+      "Bash(curl:*)",
+      "Bash(dir:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

@@ -1,10 +1,21 @@
 import React from 'react';
 import Mascot from './Mascot';
 import { ArrowRight, Zap } from 'lucide-react';
+import { sendWebhookEvent } from '../utils/webhook';
 
 const Hero: React.FC = () => {
   const scrollToFunnel = () => {
+    sendWebhookEvent('cta_clicked', 'hero_start_automating', {
+      buttonText: 'Start Automating'
+    });
     document.getElementById('funnel')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToServices = () => {
+    sendWebhookEvent('cta_clicked', 'hero_how_it_works', {
+      buttonText: 'How It Works'
+    });
+    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -34,8 +45,8 @@ const Hero: React.FC = () => {
               Start Automating
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button 
-              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+            <button
+              onClick={scrollToServices}
               className="px-8 py-4 bg-white/5 text-white font-semibold text-lg rounded-xl hover:bg-white/10 border border-white/10 transition-all duration-300"
             >
               How It Works

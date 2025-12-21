@@ -52,4 +52,4 @@ export enum FormStep {
   SUCCESS = 5
 }
 
-export type ViewState = 'home' | 'blog' | 'article' | 'privacy' | 'case-studies' | 'case-study-detail';
+export type ViewState = 'home' | 'blog' | 'article' | 'privacy' | 'terms' | 'case-studies' | 'case-study-detail';

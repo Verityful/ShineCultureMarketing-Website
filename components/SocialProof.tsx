@@ -35,7 +35,11 @@ const testimonials: TestimonialProps[] = [
 
 const SocialProof: React.FC = () => {
   return (
-    <section id="results" className="py-24 bg-shine-gray/50 relative">
+    <section id="results" className="py-24 bg-shine-gray/50 relative overflow-hidden">
+      {/* Floating Mascot in Background */}
+      <div className="absolute top-10 right-10 w-32 h-32 opacity-10 animate-float pointer-events-none hidden lg:block">
+        <img src="shine_culture_logo.png" alt="" className="w-full h-full object-contain" />
+      </div>
       <div className="container mx-auto px-6 mb-12 text-center">
         <h2 className="text-3xl md:text-5xl font-bold font-display mb-4">
           Trusted by <span className="text-shine-yellow">Market Leaders</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Twitter, Linkedin, Instagram, Facebook } from 'lucide-react';
+import { Instagram, Facebook } from 'lucide-react';
 import { ViewState } from '../types';
 
 interface FooterProps {
@@ -13,12 +13,12 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-3 mb-6 cursor-pointer" onClick={() => onNavigate('home')}>
-               <div className="w-10 h-10">
-                  {/* Using brightness-0 invert to make the black logo white for the dark theme */}
-                  <img 
-                    src="shine_culture_logo.png" 
-                    alt="Shine Culture Logo" 
-                    className="w-full h-full object-contain brightness-0 invert"
+               <div className="w-12 h-12 bg-white rounded-full p-1 flex items-center justify-center">
+                  {/* White circular background for logo visibility */}
+                  <img
+                    src="Shine Culture Logo PNG.png"
+                    alt="Shine Culture Logo"
+                    className="w-full h-full object-contain"
                   />
                </div>
               <span className="text-xl font-bold font-display">
@@ -50,6 +50,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li onClick={() => onNavigate('case-studies')} className="hover:text-shine-yellow cursor-pointer transition-colors">Case Studies</li>
               <li onClick={() => onNavigate('blog')} className="hover:text-shine-yellow cursor-pointer transition-colors">Blog</li>
               <li onClick={() => onNavigate('privacy')} className="hover:text-shine-yellow cursor-pointer transition-colors">Privacy Policy</li>
+              <li onClick={() => onNavigate('terms')} className="hover:text-shine-yellow cursor-pointer transition-colors">Terms of Service</li>
               <li onClick={() => onNavigate('home', 'funnel')} className="hover:text-shine-yellow cursor-pointer transition-colors">Contact</li>
             </ul>
           </div>
@@ -58,17 +59,11 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-600 text-sm">© {new Date().getFullYear()} Shine Culture Marketing. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="https://facebook.com/ShineCultureMarketing" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
+            <a href="https://www.facebook.com/people/Shine-Culture-Marketing/61579895460899/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors" aria-label="Visit our Facebook page">
                 <Facebook className="w-5 h-5" />
             </a>
-            <a href="https://instagram.com/ShineCultureMarketing" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
+            <a href="https://instagram.com/ShineCultureMarketing" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors" aria-label="Visit our Instagram page">
                 <Instagram className="w-5 h-5" />
-            </a>
-            <a href="https://linkedin.com/company/ShineCultureMarketing" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
-                <Linkedin className="w-5 h-5" />
-            </a>
-             <a href="https://twitter.com/ShineCultureMkt" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
-                <Twitter className="w-5 h-5" />
             </a>
           </div>
         </div>

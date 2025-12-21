@@ -55,15 +55,46 @@ const LeadFunnel: React.FC = () => {
     }
 
     setIsSubmitting(true);
-    
-    // Simulate API Call / Webhook
+
+    // Send data to webhook
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
-      
-      console.log("Submitting to webhook:", formData);
+      const webhookUrl = import.meta.env.VITE_WEBHOOK_URL;
+
+      if (webhookUrl) {
+        console.log('Sending to webhook:', webhookUrl);
+        console.log('Payload:', formData);
+
+        const payload = {
+          ...formData,
+          timestamp: new Date().toISOString(),
+          source: 'lead_funnel_form'
+        };
+
+        // Send to n8n webhook with no-cors mode to bypass CORS restrictions
+        await fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        console.log('Webhook request sent successfully to n8n');
+        console.log('Payload sent:', payload);
+
+        // Note: With no-cors mode, we can't verify the response, but the data is sent
+        // Check your n8n workflow executions to verify receipt
+      } else {
+        console.error('VITE_WEBHOOK_URL not configured!');
+        throw new Error('Webhook URL not configured');
+      }
+
       setStep(FormStep.SUCCESS);
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      console.error('Webhook error:', err);
+      setError("Something went wrong. Please try again or contact support.");
+      return; // Don't proceed to success if there's an error
     } finally {
       setIsSubmitting(false);
     }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { ViewState } from '../types';
+import { sendWebhookEvent } from '../utils/webhook';
 
 interface NavbarProps {
   currentView: ViewState;
@@ -24,6 +25,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
     onNavigate(view, sectionId);
   };
 
+  const handleGetStartedClick = (source: 'desktop' | 'mobile') => {
+    sendWebhookEvent('cta_clicked', `navbar_get_started_${source}`, {
+      buttonText: 'Get Started'
+    });
+    handleNavClick('home', 'funnel');
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -36,12 +44,12 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
           className="flex items-center gap-3 cursor-pointer group" 
           onClick={() => handleNavClick('home')}
         >
-          <div className="w-12 h-12 md:w-16 md:h-16 transition-transform group-hover:scale-105">
-            {/* Using brightness-0 invert to make the black logo white for the dark theme */}
-            <img 
-              src="shine_culture_logo.png" 
-              alt="Shine Culture Marketing" 
-              className="w-full h-full object-contain brightness-0 invert"
+          <div className="w-12 h-12 md:w-16 md:h-16 transition-transform group-hover:scale-105 bg-white rounded-full p-1 flex items-center justify-center">
+            {/* White circular background for logo visibility */}
+            <img
+              src="Shine Culture Logo PNG.png"
+              alt="Shine Culture Marketing"
+              className="w-full h-full object-contain"
             />
           </div>
           {/* Text matches brand logo text, kept for consistency and SEO */}
@@ -65,7 +73,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
             Blog
           </button>
           <button
-            onClick={() => handleNavClick('home', 'funnel')}
+            onClick={() => handleGetStartedClick('desktop')}
             className="px-6 py-2.5 bg-shine-yellow text-black font-bold rounded-full hover:bg-shine-gold hover:scale-105 transition-all duration-300 shadow-[0_0_20px_rgba(255,215,0,0.3)] text-sm"
           >
             Get Started
@@ -89,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
           <button onClick={() => handleNavClick('home', 'about')} className="text-left text-lg text-gray-300 py-2">About</button>
           <button onClick={() => handleNavClick('blog')} className="text-left text-lg text-gray-300 py-2">Blog</button>
           <button
-            onClick={() => handleNavClick('home', 'funnel')}
+            onClick={() => handleGetStartedClick('mobile')}
             className="w-full text-center px-6 py-3 bg-shine-yellow text-black font-bold rounded-lg mt-2"
           >
             Get Started

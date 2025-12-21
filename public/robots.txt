@@ -1,0 +1,10 @@
+# robots.txt for Shine Culture Marketing
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://shineculturemarketing.com/sitemap.xml
+
+# Block access to admin areas if any
+# Disallow: /admin/

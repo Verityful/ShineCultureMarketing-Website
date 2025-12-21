@@ -18,6 +18,20 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
-      }
+      },
+      build: {
+        outDir: 'dist',
+        sourcemap: mode === 'development',
+        minify: 'esbuild',
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              vendor: ['react', 'react-dom', 'lucide-react']
+            }
+          }
+        },
+        chunkSizeWarningLimit: 1000
+      },
+      publicDir: 'public'
     };
 });

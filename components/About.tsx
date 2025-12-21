@@ -45,18 +45,26 @@ const About: React.FC = () => {
           <div className="relative order-1 md:order-2">
              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
                 {/* Realistic Team Photo */}
-                <img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                  alt="Shine Culture Team Collaborating" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                <img
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                  alt="Shine Culture Team Collaborating"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                 {/* Text overlay removed as requested */}
              </div>
-             {/* Decorative box */}
+             {/* Decorative box with mascot */}
              <div className="absolute -bottom-8 -left-8 bg-shine-yellow p-6 rounded-2xl hidden md:block shadow-[0_10px_30px_rgba(255,215,0,0.2)]">
                  <p className="text-black font-bold text-3xl font-display">100%</p>
                  <p className="text-black font-medium text-sm">Done-For-You</p>
+             </div>
+             {/* Floating Mascot Badge */}
+             <div className="absolute -top-6 -right-6 w-24 h-24 animate-float hidden md:block">
+               <img
+                 src="shine_culture_logo.png"
+                 alt="Shine Culture Marketing"
+                 className="w-full h-full object-contain drop-shadow-[0_10px_30px_rgba(255,215,0,0.5)]"
+               />
              </div>
           </div>
         </div>

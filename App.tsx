@@ -9,6 +9,7 @@ import About from './components/About';
 import Blog from './components/Blog';
 import BlogDetail from './components/BlogDetail';
 import Legal from './components/Legal';
+import TermsOfService from './components/TermsOfService';
 import CaseStudies from './components/CaseStudies';
 import CaseStudyDetail from './components/CaseStudyDetail';
 import RoiCalculator from './components/RoiCalculator';
@@ -19,15 +20,22 @@ const schemaMarkup = {
   "@context": "https://schema.org",
   "@type": "MarketingAgency",
   "name": "Shine Culture Marketing",
-  "image": "shine_culture_logo.png", 
-  "description": "Done-for-you AI infrastructure and business operations management.",
+  "image": "/shine_culture_logo.png",
+  "logo": "/shine_culture_logo.png",
+  "description": "Done-for-you AI infrastructure and business operations management. We automate workflows, deploy chatbots, and manage your entire AI stack.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Digital",
     "addressCountry": "Global"
   },
   "email": "info@shineculturemarketing.com",
-  "priceRange": "$$$"
+  "telephone": "+1-XXX-XXX-XXXX",
+  "url": "https://shineculturemarketing.com",
+  "priceRange": "$$$",
+  "sameAs": [
+    "https://www.facebook.com/people/Shine-Culture-Marketing/61579895460899/",
+    "https://instagram.com/ShineCultureMarketing"
+  ]
 };
 
 const App: React.FC = () => {
@@ -107,14 +115,16 @@ const App: React.FC = () => {
         {currentView === 'case-studies' && <CaseStudies onRead={handleReadCaseStudy} />}
 
         {currentView === 'case-study-detail' && selectedCaseStudy && (
-          <CaseStudyDetail 
-            study={selectedCaseStudy} 
-            onBack={() => navigateTo('case-studies')} 
+          <CaseStudyDetail
+            study={selectedCaseStudy}
+            onBack={() => navigateTo('case-studies')}
             onNavigate={navigateTo}
           />
         )}
-        
+
         {currentView === 'privacy' && <Legal />}
+
+        {currentView === 'terms' && <TermsOfService onNavigate={navigateTo} />}
       </main>
 
       <Footer onNavigate={navigateTo} />
