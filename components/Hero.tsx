@@ -8,6 +8,7 @@ const Hero: React.FC = () => {
     sendWebhookEvent('cta_clicked', 'hero_start_automating', {
       buttonText: 'Start Automating'
     });
+    window.history.pushState({ view: 'home', sectionId: 'funnel' }, '', '/#funnel');
     document.getElementById('funnel')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -15,6 +16,7 @@ const Hero: React.FC = () => {
     sendWebhookEvent('cta_clicked', 'hero_how_it_works', {
       buttonText: 'How It Works'
     });
+    window.history.pushState({ view: 'home', sectionId: 'services' }, '', '/#services');
     document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
   };
 

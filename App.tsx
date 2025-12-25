@@ -43,6 +43,100 @@ const App: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [selectedCaseStudy, setSelectedCaseStudy] = useState<CaseStudy | null>(null);
 
+  // Map ViewState to URL paths
+  const getPathForView = (view: ViewState, sectionId?: string): string => {
+    const paths: Record<ViewState, string> = {
+      'home': '/',
+      'blog': '/blog',
+      'article': '/article',
+      'privacy': '/privacy-policy',
+      'terms': '/terms',
+      'case-studies': '/case-studies',
+      'case-study-detail': '/case-study'
+    };
+
+    let path = paths[view] || '/';
+    if (view === 'home' && sectionId) {
+      path = `/#${sectionId}`;
+    }
+    return path;
+  };
+
+  // Parse URL to determine current view
+  const getViewFromPath = (pathname: string, hash: string): { view: ViewState; sectionId?: string } => {
+    if (pathname === '/' || pathname === '') {
+      if (hash) {
+        return { view: 'home', sectionId: hash.replace('#', '') };
+      }
+      return { view: 'home' };
+    }
+    if (pathname.startsWith('/blog')) return { view: 'blog' };
+    if (pathname.startsWith('/article')) return { view: 'article' };
+    if (pathname.startsWith('/privacy-policy')) return { view: 'privacy' };
+    if (pathname.startsWith('/terms')) return { view: 'terms' };
+    if (pathname.startsWith('/case-studies')) return { view: 'case-studies' };
+    if (pathname.startsWith('/case-study')) return { view: 'case-study-detail' };
+    return { view: 'home' };
+  };
+
+  // Initialize view from URL on mount
+  useEffect(() => {
+    const { view, sectionId } = getViewFromPath(window.location.pathname, window.location.hash);
+    setCurrentView(view);
+
+    // Handle hash scrolling for home sections
+    if (view === 'home' && sectionId) {
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, []);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const { view, sectionId } = getViewFromPath(window.location.pathname, window.location.hash);
+      setCurrentView(view);
+
+      // Reset selected items when navigating away
+      if (view !== 'article') setSelectedPost(null);
+      if (view !== 'case-study-detail') setSelectedCaseStudy(null);
+
+      // Handle scrolling
+      if (view === 'home' && sectionId) {
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Update document title based on current view
+  useEffect(() => {
+    const titles: Record<ViewState, string> = {
+      'home': 'Shine Culture Marketing | Done-for-you AI Automation & Business Operations',
+      'blog': 'Blog | Shine Culture Marketing',
+      'article': 'Article | Shine Culture Marketing',
+      'privacy': 'Privacy Policy | Shine Culture Marketing',
+      'terms': 'Terms of Service | Shine Culture Marketing',
+      'case-studies': 'Case Studies | Shine Culture Marketing',
+      'case-study-detail': 'Case Study | Shine Culture Marketing'
+    };
+
+    document.title = titles[currentView] || titles['home'];
+  }, [currentView]);
+
   useEffect(() => {
     // Inject schema markup
     const script = document.createElement('script');
@@ -60,6 +154,10 @@ const App: React.FC = () => {
     // Reset selected items if navigating away
     if (view !== 'article') setSelectedPost(null);
     if (view !== 'case-study-detail') setSelectedCaseStudy(null);
+
+    // Update browser URL
+    const newPath = getPathForView(view, sectionId);
+    window.history.pushState({ view, sectionId }, '', newPath);
 
     if (view === 'home' && sectionId) {
       // Small delay to ensure DOM render before scroll
